@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { formatToPEM } from '../utils/keyFormatters';
-import { useToast } from '../contexts/ToastContext';
+import { useToast } from '../hooks/useToast';
 
 const PEM_TYPES = [
   'PRIVATE KEY',

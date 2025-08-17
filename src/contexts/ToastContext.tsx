@@ -1,5 +1,7 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { useState } from 'react';
+import type { ReactNode } from 'react';
 import Toast from '../components/Toast';
+import { ToastContext } from './toastContextDefinition';
 
 interface ToastData {
   id: string;
@@ -8,25 +10,11 @@ interface ToastData {
   duration?: number;
 }
 
-interface ToastContextType {
-  showToast: (message: string, type?: 'success' | 'error' | 'info', duration?: number) => void;
-}
-
-const ToastContext = createContext<ToastContextType | undefined>(undefined);
-
-export const useToast = () => {
-  const context = useContext(ToastContext);
-  if (!context) {
-    throw new Error('useToast must be used within a ToastProvider');
-  }
-  return context;
-};
-
 interface ToastProviderProps {
   children: ReactNode;
 }
 
-export const ToastProvider = ({ children }: ToastProviderProps) => {
+const ToastProvider = ({ children }: ToastProviderProps) => {
   const [toasts, setToasts] = useState<ToastData[]>([]);
 
   const showToast = (message: string, type: 'success' | 'error' | 'info' = 'success', duration = 3000) => {
@@ -64,3 +52,5 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
     </ToastContext.Provider>
   );
 };
+
+export { ToastProvider };

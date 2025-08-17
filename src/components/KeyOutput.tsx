@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useToast } from '../contexts/ToastContext';
+import { useToast } from '../hooks/useToast';
 
 interface KeyOutputProps {
   originalText: string;
