@@ -1,12 +1,12 @@
-import './App.css'
+import Tab from './components/Tab'
 
 function App() {
 
   return (
     <>
-  <div className="text-3xl font-bold underline">
-    hello
-  </div>
+    <div className='flex w-screen' >
+      <Tab />
+    </div>
     </>
   )
 }
