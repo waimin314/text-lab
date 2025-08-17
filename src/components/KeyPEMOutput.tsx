@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
-const KeySingleLineOutput = (props: { originalText: string }) => {
+const KeyPEMOutput = (props: { originalText: string }) => {
   const [text, setText] = useState(props.originalText);
 
   useEffect(() => {
-    setText(formateToSingleLine(props.originalText));
+    setText(formatToPEM(props.originalText));
   }, [props.originalText]);
 
   const copyToClipboard = () => {
@@ -28,10 +28,18 @@ const KeySingleLineOutput = (props: { originalText: string }) => {
     return textWithoutNewLines.replace(/\s+/g, ' ').trim();
   };
 
+  // Format the text to PEM format
+  const formatToPEM = (text: string) => {
+    if (!text || text === '') return '';
+    const singleLineText = formateToSingleLine(text);
+    const formattedText = singleLineText.match(/.{1,64}/g)?.join('\n') || '';
+    return `-----BEGIN PRIVATE KEY-----\n${formattedText}\n-----END PRIVATE KEY-----`;
+  };
+
   return (
-    <div className='w-full h-64 mb-32'>
+    <div className='w-full h-64 mb-18'>
       <header className='flex justify-between items-center mb-4'>
-        <h2 className='text-2xl font-bold mb-4'>Single line</h2>
+        <h2 className='text-2xl font-bold mb-4'>PEM format</h2>
         <button
           onClick={copyToClipboard}
           className='bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-400'
@@ -49,4 +57,4 @@ const KeySingleLineOutput = (props: { originalText: string }) => {
   );
 };
 
-export default KeySingleLineOutput;
+export default KeyPEMOutput;
