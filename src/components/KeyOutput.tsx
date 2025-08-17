@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useToast } from '../contexts/ToastContext';
 
 interface KeyOutputProps {
   originalText: string;
@@ -8,6 +9,7 @@ interface KeyOutputProps {
 
 const KeyOutput = ({ originalText, title, formatter}: KeyOutputProps) => {
   const [text, setText] = useState(originalText);
+  const { showToast } = useToast();
 
   useEffect(() => {
     setText(formatter(originalText));
@@ -17,10 +19,11 @@ const KeyOutput = ({ originalText, title, formatter}: KeyOutputProps) => {
     navigator.clipboard
       .writeText(text)
       .then(() => {
-        alert('Text copied to clipboard!');
+        showToast('Copied to clipboard!', 'success');
       })
       .catch((err) => {
         console.error('Failed to copy text: ', err);
+        showToast('Failed to copy text', 'error');
       });
   };
 

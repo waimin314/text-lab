@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { formatToPEM } from '../utils/keyFormatters';
+import { useToast } from '../contexts/ToastContext';
 
 const PEM_TYPES = [
   'PRIVATE KEY',
@@ -13,6 +14,7 @@ const PEM_TYPES = [
 const KeyPEMOutput = (props: { originalText: string }) => {
   const [text, setText] = useState(props.originalText);
   const [selectedPemType, setSelectedPemType] = useState('PRIVATE KEY');
+  const { showToast } = useToast();
 
   useEffect(() => {
     setText(formatToPEM(props.originalText, selectedPemType));
@@ -22,10 +24,11 @@ const KeyPEMOutput = (props: { originalText: string }) => {
     navigator.clipboard
       .writeText(text)
       .then(() => {
-        alert('Text copied to clipboard!');
+        showToast('Copied to clipboard!', 'success');
       })
       .catch((err) => {
         console.error('Failed to copy text: ', err);
+        showToast('Failed to copy text', 'error');
       });
   };
 
