@@ -2,10 +2,10 @@ import KeyFormatter from './components/KeyFormatter';
 
 function App() {
   return (
-    <main className='flex justify-center p-10'>
-      <section className='flex justify-center container mx-auto max-w-4xl px-4 bg-purple-50 p-10 rounded'>
+    <main className='min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50'>
+      <div className='container mx-auto max-w-6xl px-6 py-12'>
         <KeyFormatter />
-      </section>
+      </div>
     </main>
   );
 }
