@@ -7,9 +7,9 @@ export const formatToSingleLine = (text: string) => {
   return textWithoutNewLines.replace(/\s+/g, ' ').trim();
 };
 
-export const formatToPEM = (text: string) => {
+export const formatToPEM = (text: string, pemType: string = 'PRIVATE KEY') => {
   if (!text || text === '') return '';
   const singleLineText = formatToSingleLine(text);
   const formattedText = singleLineText.match(/.{1,64}/g)?.join('\n') || '';
-  return `-----BEGIN PRIVATE KEY-----\n${formattedText}\n-----END PRIVATE KEY-----`;
+  return `-----BEGIN ${pemType}-----\n${formattedText}\n-----END ${pemType}-----`;
 };
